@@ -1,4 +1,7 @@
+//Code for OpenLUX LED Video Light
+//Written by Andy Jarosz
 
+//The code for the Thermistor will almost certainly change depending on the one you use. Be sure to look up the values for your thermistor, or the temp readings will be thrown off. 
 
 #include <AceButton.h>
 using namespace ace_button;
