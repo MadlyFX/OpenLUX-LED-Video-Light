@@ -246,12 +246,12 @@ void setEnc(int num) {
   myEnc.write(num);
 }
 
-void writeTop() {
+void writeTop() { //Write the top statusbar section
   tft.setCursor(0, 20);
   tft.fillRect(0, 0, 240, 55, ST77XX_WHITE);
   tft.setTextColor(ST77XX_RED);
   tft.setFont(&FreeMonoBoldOblique12pt7b);
-  tft.print(12.3);
+  tft.print(map(analogRead(10), 0, 1023.0, 0, 28.0));
   tft.print("V");
   tft.setCursor(0, 45);
   tft.print("Temp: ");
@@ -281,7 +281,8 @@ void checkTemp() {
     tft.fillRect(0, 0, 240, 240, ST77XX_RED);
     tft.setFont(&FreeSans24pt7b);
     tft.setTextColor(ST77XX_WHITE);
-    tft.setCursor(20, 30);
+    tft.setCursor(20, 40);
+    tft.setFont(&FreeMonoBoldOblique12pt7b);
     tft.print("OVERTEMP");
 
     while (1) { //Intentional endless loop crash, turn off the LEDs forever
