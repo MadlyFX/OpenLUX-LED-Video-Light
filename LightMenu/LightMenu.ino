@@ -27,17 +27,14 @@ void handleEvent(AceButton*, uint8_t, uint8_t);
 // which analog pin to connect
 #define THERMISTORPIN A7
 // resistance at 25 degrees C
-#define THERMISTORNOMINAL 100000
+#define THERMISTORNOMINAL 10000
 // temp. for nominal resistance (almost always 25 C)
 #define TEMPERATURENOMINAL 25
-// how many samples to take and average, more takes longer
-// but is more 'smooth'
-#define NUMSAMPLES 5
 // The beta coefficient of the thermistor (usually 3000-4000)
 #define BCOEFFICIENT 3950
 // the value of the 'other' resistor
-#define SERIESRESISTOR 100000
-
+#define SERIESRESISTOR 10000
+float steinhart;
 // For the breakout board, you can use any 2 or 3 pins.
 // These pins will also work for the 1.8" TFT shield.
 #define TFT_CS        8
@@ -52,13 +49,7 @@ int currentEncoderPos;
 // For 1.3", 1.54", and 2.0" TFT with ST7789:
 Adafruit_ST7789 tft = Adafruit_ST7789(TFT_CS, TFT_DC, TFT_RST);
 
-Encoder myEnc(6, 4);
-
-int ThermistorPin = 7;
-int Vo;
-float R1 = 100000;
-float logR2, R2, T;
-float c1 = 0.7203283552e-3, c2 =  2.171656865e-4, c3 =  0.8706070062e-7;
+Encoder myEnc(4, 6);
 
 float p = 3.1415926;
 long oldPosition  = -999;
@@ -212,30 +203,41 @@ void loop() {
 
   }
 
-  if (turboMode == false) {
-    powerMultiplier = map(power, 0, 100, 0, 255);
-    value2700 = map(temp, 2700, 6500, 0, powerMultiplier);
-    value6500 =  map(temp, 2700, 6500, powerMultiplier, 0);
+  if (turboMode == false) { //Linear dimming mode, standard
+    powerMultiplier = map(power, 0, 100, 0, 255); //Convert the 0-100 human value to a 0-255 8-bit value
+    value2700 = map(temp, 2700, 6500, 0, powerMultiplier); //Find the % of that value between 2700 and 6500
+    value6500 =  map(temp, 2700, 6500, powerMultiplier, 0); //Find the % of that value between 6500 and 2500
 
     analogWrite(22, value2700);
     analogWrite(23, value6500);
-  } else {
-    powerMultiplier = map(power, 0, 100, 125, 255);
+  } else { //Turbo Mode
+    powerMultiplier = map(power, 0, 100, 0, 255); 
     value6500 =  map(temp, 2700, 6500, powerMultiplier, 0);
     value2700 = map(temp, 2700, 6500, 0, powerMultiplier);
-    analogWrite(22, value2700);
-    analogWrite(23, value6500);
+    analogWrite(22, value2700 * 2);
+    analogWrite(23, value6500 * 2);
   }
 
   //Serial.println(value2700);
   //Serial.println(value6500);
+      float average = analogRead(THERMISTORPIN);
 
-
-  Vo = analogRead(ThermistorPin);
-  R2 = R1 * (1023.0 / (float)Vo - 1.0);
-  logR2 = log(R2);
-  T = (1.0 / (c1 + c2 * logR2 + c3 * logR2 * logR2 * logR2));
-  T = T - 273.15; //Degrees C
+      average = 1023 / average - 1;
+      average = SERIESRESISTOR * average;
+      Serial.print("Thermistor resistance "); 
+      Serial.println(average);
+      
+      
+      steinhart = average / THERMISTORNOMINAL;     // (R/Ro)
+      steinhart = log(steinhart);                  // ln(R/Ro)
+      steinhart /= BCOEFFICIENT;                   // 1/B * ln(R/Ro)
+      steinhart += 1.0 / (TEMPERATURENOMINAL + 273.15); // + (1/To)
+      steinhart = 1.0 / steinhart;                 // Invert
+      steinhart -= 273.15;                         // convert to C
+      
+      Serial.print("Temperature "); 
+      Serial.print(steinhart);
+      Serial.println(" *C");
 
 
   if (millis() % 5000 == 0 ) { //Every 5 seconds, update top and check the temp
@@ -254,11 +256,12 @@ void writeTop() { //Write the top statusbar section
   tft.fillRect(0, 0, 240, 55, ST77XX_WHITE);
   tft.setTextColor(ST77XX_RED);
   tft.setFont(&FreeMonoBoldOblique12pt7b);
-  tft.print(map(analogRead(10), 0, 1023.0, 0, 28.0));
+  float voltage = analogRead(10) * (3.3 /1023.0);
+  tft.print(voltage * 9);
   tft.print("V");
   tft.setCursor(0, 45);
   tft.print("Temp: ");
-  tft.print(round(T / 90 * 100));
+  tft.print(round(steinhart / 100 * 100));
   tft.print("%");
 
   if (turboMode == false) {
@@ -280,7 +283,7 @@ void writeTop() { //Write the top statusbar section
 
 void checkTemp() {
 
-  if (T > 80) {
+  if (steinhart > 80) {
     tft.fillRect(0, 0, 240, 240, ST77XX_RED);
     tft.setFont(&FreeSans24pt7b);
     tft.setTextColor(ST77XX_WHITE);
