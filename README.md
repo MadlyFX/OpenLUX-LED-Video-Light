@@ -53,5 +53,6 @@ The light can fit into a Bowens mount holder for camera flashes, which allows it
 
 The front section takes Molly Fresnel lenses from Ledil, and allows a certain amount of adjustability. Ledil makes three of these lenses in different focal lengths, but the medium one has the same beam angle as a typical fresnel lamp at full flood. 
 
+<img src="Images/IMG_1362.jpg" width="500">
 
 
