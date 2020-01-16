@@ -1,0 +1,11 @@
+Partlist exported from C:/Users/Andy/Documents/Arduino/LightMenu/OpenLUX-LED-Video-Light/Eagle/LightBoard2.sch at 1/16/2020 10:09 AM
+
+Qty Value          Device         Package              Parts          Description                       PROD_ID   SF_ID     SF_SKU   
+1                  PINHD-1X8LOCK  1X08-LOCK            JP1            PIN HEADER                                                     
+1   10k            R-US_0204/5    0204/5               R1             RESISTOR, American symbol                                      
+1   15000          R-US_0204/5    0204/5               15000          RESISTOR, American symbol                                      
+1   1870           R-US_0204/5    0204/5               1870           RESISTOR, American symbol                                      
+4   1X2-3.5MM      1X2-3.5MM      1X2-3.5MM            J1, J2, J3, J5 3.5mm Terminal block                                           
+1   ENCODER-SWITCH ENCODER-SWITCH ROTARY_ENC_PLAIN     S1             Rotary Encoder w/ Select Switch                       COM-09117
+1   R-78E5.0-1.0   R-78E5.0-1.0   DC-DC_CONVERTER_78XX U1             Recom Power 5V 1A DC/DC Converter COM-13655                    
+1   TEENSY-3.1SILK TEENSY-3.1SILK TEENSY-3.1           B1             Teensy 3+ Footprint                         DEV-12646          
