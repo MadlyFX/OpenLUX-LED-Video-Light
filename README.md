@@ -5,6 +5,9 @@ The OpenLUX Light is a high-CRI, flicker-free, bicolor LED light intended for fi
 Fusion 360 Assembly: https://a360.co/2Nx0XiO
 
 <img src="Images/IMG_1352.jpg" width="500">
+<img src="Images/IMG_1354.jpg" width="500">
+
+The light features a CTM-22 COB LED module.
 
 ###### Features:
 
@@ -12,7 +15,7 @@ Fusion 360 Assembly: https://a360.co/2Nx0XiO
  - Accepts small fresnel lenses
  - Full Color LCD Display Menu
  - Overtemp Protection
- - 8Khz PWM Rate
+ - 8Khz PWM Rate (Can be increased to 10Khz)
  - Runs Arduino Code
  
  ###### Specs:
@@ -43,5 +46,12 @@ The fixure draws 3A max in the Linear dimming mode, and 6A in the turbo mode.
 ## Performance
 
 Up to 150 lux at 20 feet can be achieved, making it plenty bright enough for general purpose use. However, it should be noted that with the Silent fan, the light will only last about 60 seconds before overheating at 4600K, 100%, Turbo dimming. Sticking with the Linear dimming mode will provide much longer runtimes. If the light overheats, it will turn off and lock itself out, requiring a restart.
+
+## Mechanical
+
+The light can fit into a Bowens mount holder for camera flashes, which allows it to be attached to a stand and accept things like softboxes. https://www.amazon.com/gp/product/B00JS3MINC/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
+
+The front section takes Molly Fresnel lenses from Ledil, and allows a certain amount of adjustability. Ledil makes three of these lenses in different focal lengths, but the medium one has the same beam angle as a typical fresnel lamp at full flood. 
+
 
 
