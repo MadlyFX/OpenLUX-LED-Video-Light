@@ -51,7 +51,7 @@ Up to 150 lux at 20 feet can be achieved, making it plenty bright enough for gen
 
 The light can fit into a Bowens mount holder for camera flashes, which allows it to be attached to a stand and accept things like softboxes. https://www.amazon.com/gp/product/B00JS3MINC/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1
 
-The front section takes Molly Fresnel lenses from Ledil, and allows a certain amount of adjustability. Ledil makes three of these lenses in different focal lengths, but the medium one has the same beam angle as a typical fresnel lamp at full flood. 
+The front section takes Molly Fresnel lenses from Ledil, and allows a certain amount of adjustability. Ledil makes three of these lenses in different focal lengths, but the wide 60 degree one has the same beam angle as a typical fresnel lamp at full flood. 
 
 <img src="Images/IMG_1362.jpg" width="500">
 
