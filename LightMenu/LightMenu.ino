@@ -1,7 +1,13 @@
 //Code for OpenLUX LED Video Light
 //Written by Andy Jarosz
 
-//The code for the Thermistor will almost certainly change depending on the one you use. Be sure to look up the values for your thermistor, or the temp readings will be thrown off. 
+//Third party libraries used:
+//AceButton
+//Adafruit GFX
+//Adafruit ST77
+//TeensyEncoder
+
+//The B25 value for the Thermistor will change if you use one other than is in the BOM. Be sure to look up the values for your thermistor, or the temp readings will be thrown off. 
 
 #include <AceButton.h>
 using namespace ace_button;
@@ -31,7 +37,7 @@ void handleEvent(AceButton*, uint8_t, uint8_t);
 // temp. for nominal resistance (almost always 25 C)
 #define TEMPERATURENOMINAL 25
 // The beta coefficient of the thermistor (usually 3000-4000)
-#define BCOEFFICIENT 3950
+#define BCOEFFICIENT 3988
 // the value of the 'other' resistor
 #define SERIESRESISTOR 10000
 float steinhart;
@@ -73,7 +79,7 @@ float powerMultiplier;
 
 
 void setup(void) {
-  analogWriteFrequency(23, 8000);
+  analogWriteFrequency(23, 8000); //Set 8KHz Pwm Rate
   analogWriteFrequency(22, 8000);
   Serial.begin(9600);
   pinMode(7, INPUT_PULLUP); //Encoder Pullup
@@ -211,7 +217,7 @@ void loop() {
     analogWrite(22, value2700);
     analogWrite(23, value6500);
   } else { //Turbo Mode
-    powerMultiplier = map(power, 0, 100, 0, 255); 
+    powerMultiplier = map(power, 0, 100, 0, 255); //Simple way to do turbo mode, just multiply PWM values by 2. Arduino automatically limits them to 255.
     value6500 =  map(temp, 2700, 6500, powerMultiplier, 0);
     value2700 = map(temp, 2700, 6500, 0, powerMultiplier);
     analogWrite(22, value2700 * 2);
