@@ -22,7 +22,7 @@ The light features a CTM-22 COB LED module.
  
   - 2700K-6500K Adjustable Color Temp
   - 95CRI Average
-  - 150 Lux @20ft w/ spot lens (100% brightness, 4700K temp, Turbo Mode)
+  - 150 Lux @20ft w/ medium lens (100% brightness, 4700K temp, Turbo Mode)
   - 9-28V input
   - 3 amps max for linear dimming, 6 amps max for Turbo mode
   
